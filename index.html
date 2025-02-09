@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch API</title>
+</head>
+<body>
+    <div class="notification"></div>
+    <input type="text" name="massage">
+    <button onclick="submitData()">Send</button>
+    <button onclick="getPerson()">Get</button>
+    <script>
+
+        // POST METHOD
+        function submitData(){
+           const url = "post.php";
+           const massage_field = document.querySelector("input").value;
+           const formData = new FormData();
+           formData.append("massage", massage_field);
+           fetch(url, {
+                method: "POST",
+                body: formData,
+           })
+           .then(res => res.text())
+           .then(apply => document.querySelector(".notification").innerHTML = apply);
+        }
+
+        // GET METHOD
+        function getPerson(){
+            let url = "person.json";
+            fetch(url)
+            .then(data => data.json())
+            .then(person => document.querySelector(".notification").innerHTML = `<h2>${person.name}</h2>`);
+        }
+    </script>
+</body>
+</html>
